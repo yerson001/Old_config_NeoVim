@@ -1,9 +1,16 @@
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        "autocmd VimEnter * PlugInstall
+        "autocmd VimEnter * PlugInstall | source $MYVIMRC
    endif
 
-  call plug#begin('~/.config/nvim/autoload/plugged')
+        call plug#begin('~/.config/nvim/autoload/plugged')
+"call dein#add('ryanoasis/vim-webdevicons')
+"call dein#add('adelarsq/vim-devicons-emoji')
+        " Better Syntax Support
+	"	"
+	")
         Plug 'dense-analysis/ale'
         Plug 'safv12/andromeda.vim'
         Plug 'ghifarit53/tokyonight-vim'
@@ -19,6 +26,7 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
         Plug 'tpope/vim-repeat'
         Plug 'kqito/vim-easy-replace'
         Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+"         Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
         Plug 'iamcco/mathjax-support-for-mkdp'
         Plug 'iamcco/markdown-preview.vim'
         Plug 'nvim-treesitter/highlight.lua'
@@ -64,7 +72,9 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
         Plug 'ryanoasis/vim-webdevicons'
         Plug 'critiqjo/lldb.nvim'
         Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
-	Plug 'voldikss/vim-floaterm'
+	      Plug 'voldikss/vim-floaterm'
+        "Plug 'https://github.com/ryanoasis/vim-webdevicons'
+	      "Plug 'https://github.com/adelarsq/vim-devicons-emoji'
         Plug 'iamcco/sran.nvim',{'do':{ -> sran#util#install()}}
         Plug 'iamcco/clock.nvim'
         Plug 'tranvansang/octave.vim'
@@ -75,6 +85,7 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
         Plug 'frazrepo/vim-rainbow'
         Plug 'tpope/vim-sleuth'
         Plug 'editorconfig/editorconfig-vim'
+        "Plug 'vim-airline/vim-airline'
         Plug 'enricobacis/vim-airline-clock'
         Plug 'airblade/vim-gitgutter'
 	Plug 'mhinz/vim-signify'
@@ -82,23 +93,35 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
         Plug 'tpope/vim-rhubarb'
         Plug 'junegunn/gv.vim'
         Plug 'dyng/ctrlsf.vim' 
+        "control f
 	let g:signify_sign_add               = '+'
         let g:signify_sign_delete            = '_'
         let g:signify_sign_delete_first_line = '‾'
         let g:signify_sign_change            = '~'
+        
+
 	set updatetime=250
         let g:gitgutter_realtime = 1
         let g:gitguter_eager = 1
  " **************************enable powerline fonts****************
+        "let g:airline_powerline_fonts = 1
+        "let g:airline_left_sep = ''
+        "let g:airline_right_sep = ''
+  " Switch to your current theme
+     
+	"let g:airline_theme = 'gruvbox'
 	let g:airline_theme = 'sonokai'
+" 	let g:shades_of_purple_airline = 1
 " 	let g:airline_theme = 'shades_of_purple'
 	"let g:airline_theme = 'deus'
-        let g:airline#extensions#tabline#enabled = 1
-        let g:airline_powerline_fonts = 1
-        set showtabline=2
-        set noshowmode
+
+"colorscheme gruvbox
 
 
+	" Always show tabs
+set showtabline=2
+" We don't need to see things like -- INSERT -- anymore
+set noshowmode
 "=========================================================
 
 set termguicolors
@@ -112,8 +135,10 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 let g:NERDTreeDirArrowExpandable = '📥'
 let g:NERDTreeDirArrowCollapsible = '🔻'
 
+
 "auto completo
 let g:deoplete#enable_at_startup = 1
+
 "Cerrar automaticamente la ventana de vista previa (donde se muestra documentación, si existe)augroup deopleteCompleteDoneAu
   autocmd!
   autocmd CompleteDone * silent! pclose!
@@ -121,6 +146,8 @@ augroup END
 
 set encoding=utf8
 set clipboard^=unnamed,unnamedplus
+
+
 
 let g:webdevicons_enable = 1
 let g:webdevicons_enable_nerdtree = 1
@@ -166,6 +193,8 @@ let g:signify_sign_change            = '💠'
 let g:signify_sign_show_count = 0
 let g:signify_sign_show_text = 1
 
+
+
 let g:NERDTreeGitStatusIndicatorMapCustom = {
                 \ 'Modified'  :'♻️',
                 \ 'Staged'    :'✚',
@@ -194,6 +223,11 @@ map <leader><leader> <Esc>/<++><Enter>"_c4l
 "=================================================
 set encoding=UTF-8
 
+" Jump though hunks
+nmap <leader>gj <plug>(signify-next-hunk)
+nmap <leader>gk <plug>(signify-prev-hunk)
+nmap <leader>gJ 9999<leader>gJ
+nmap <leader>gK 9999<leader>gk
 " rainboar
 let g:rainbow_active = 1
 let g:rainbow_load_separately = [
@@ -209,6 +243,36 @@ set expandtab
 set tabstop=2
 set shiftwidth=2 
 "=======================================================
+" " airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+set showtabline=2
+set noshowmode
+
+" let g:airline#extensions#tabline#left_sep = ''
+" let g:airline#extensions#tabline#left_alt_sep = '|'
+" let g:airline#extensions#tabline#right_sep = ''
+" let g:airline#extensions#tabline#right_alt_sep = ''
+" let g:airline#extensions#tabline#formatter = 'default'
+" 
+" function! AccentDemo()
+"   let keys = ['❥','⚽','🅈🅁🅂🄽','🎵','💘','🎹','☎´']
+"   for k in keys
+"     call airline#parts#define_text(k, k)
+"   endfor
+"   call airline#parts#define_accent('❥', 'red')
+"   call airline#parts#define_accent('⚽', 'green')
+"   call airline#parts#define_accent('🅈🅁🅂🄽', 'blue')
+"   call airline#parts#define_accent('🎵', 'bold')
+"   call airline#parts#define_accent('💘', 'orange')
+"   call airline#parts#define_accent('🎹', 'purple')
+"   call airline#parts#define_accent('☎', 'bold')
+"   "call airline#parts#define_accent('Y', 'italic')
+"   let g:airline_section_a = airline#section#create(keys)
+" endfunction
+" autocmd VimEnter * call AccentDemo()
+" 
+
 call plug#end()
 
 
@@ -221,6 +285,16 @@ let g:onedark_termcolors=256
 let g:sonokai_style = 'andromeda'
 " let g:sonokai_style = 'atlantis'
 "let g:sonokai_style = 'shusia'
+
+"let g:sonokai_enable_italic = 1;
+"let g:sonokai_disable_italic_comment = 1;
+
+" set termguicolors     " enable true colors support
+" let ayucolor="light"  " for light version of theme
+" let ayucolor="mirage" " for mirage version of theme
+"let ayucolor="dark"   " for dark version of theme
+" colorscheme ayu
+
 
 colorscheme sonokai
 " colorscheme onedark
@@ -251,8 +325,10 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 "colorscheme deus
 " let g:deus_termcolors=256
 
+
 "=============easymotion============
 nmap <leader>s <Plug>(easymotion-s2)
+
 
 autocmd FileType javascript nnoremap <buffer> <F5> :w<esc>:FloatermNew node %<CR>
 autocmd FileType c nnoremap <buffer> <F5> :w<esc>:FloatermNew gcc % && ./a.out && rm a.out<CR>
@@ -260,6 +336,7 @@ autocmd FileType cpp nnoremap <buffer> <F5> :w<esc>:FloatermNew g++ % && ./a.out
 autocmd FileType python nnoremap <buffer> <F5> :w<esc>:FloatermNew python3 %<CR>
 autocmd Filetype java nnoremap <buffer> <F5> :w <esc> !javac % && java %:r <CR>
 autocmd FileType hs nnoremap <buffer> <F5> :w<esc>:FloatermNew ghc %<CR>
+
 
 " Commenting blocks of code.
 augroup commenting_blocks_of_code
@@ -275,6 +352,8 @@ augroup commenting_blocks_of_code
 augroup END
 noremap <silent> ,c :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> ,u :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+
+
 augroup pandoc_syntax
     au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
 augroup END 
@@ -283,10 +362,12 @@ augroup pandoc_syntax
   autocmd! FileType vimwiki set syntax=markdown.pandoc
 augroup END
 
+
 if (has("termguicolors"))
  set termguicolors
 endif
-"""" enable the theme floater term config
+
+"""" enable the theme
 nnoremap <F7> :FloatermToggle <CR>
 let g:floaterm_keymap_toggle = '<F7>'
 let g:floaterm_keymap_next = '<F4>'
